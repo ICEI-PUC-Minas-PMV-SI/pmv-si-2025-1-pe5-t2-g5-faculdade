@@ -1,5 +1,4 @@
-#   UNIVERSIDADE
-  fEDERAL DA SERRA
+#   UNIVERSIDADE FEDERAL DA SERRA
 
 `CURSO: Sistemas de Informação`
 
