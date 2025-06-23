@@ -1,0 +1,127 @@
+:root {
+    --primary-bg: #f8e8e8;
+    --secondary-bg: #d1e8e2;
+    --glass-bg: rgba(255, 255, 255, 0.2);
+    --glass-opaque: rgba(255, 255, 255, 0.85);
+    --text-color: #5a5a5a;
+    --button-hover: #93b3d5;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+}
+
+.app-header,
+.app-navbar {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    position: relative;
+    z-index: 1000;
+}
+
+.app-main {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.6s ease-in-out;
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    overflow: visible;
+    z-index: 1;
+}
+
+.navbar-nav .nav-link,
+.dropdown-item {
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover,
+.dropdown-item:hover {
+    background-color: var(--button-hover);
+    color: white;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 2000;
+    background-color: var(--glass-opaque);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    animation: fadeDown 0.25s ease-out;
+    transform-origin: top;
+    overflow: visible;
+}
+
+.dropdown-menu.show {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+}
+
+a, .btn, input, button {
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus,
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(168, 200, 234, 0.4);
+    transform: scale(1.02);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .app-main {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .navbar-nav .nav-link,
+    .dropdown-item {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+    }
+
+    .d-flex.align-items-center {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.5rem;
+    }
+
+    header h1 {
+        font-size: 1.25rem;
+    }
+}
+
+.spinner-border {
+    vertical-align: middle;
+}
