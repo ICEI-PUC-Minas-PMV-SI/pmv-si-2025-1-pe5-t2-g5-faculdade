@@ -6,7 +6,6 @@
 
 `Eixo: 5`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
 A infraestrutura de TI é um pilar fundamental para o funcionamento eficiente de instituições acadêmicas, garantindo suporte às atividades administrativas, educacionais e de pesquisa.
 ## Integrantes
 
