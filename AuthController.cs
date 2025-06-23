@@ -23,8 +23,8 @@ public class AuthController(IConfiguration config, AppDbContext context) : Contr
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-            new Claim(ClaimTypes.Email, usuario.Email),
-            new Claim(ClaimTypes.Name, usuario.Nome)
+            new Claim(ClaimTypes.Email, usuario.Email ?? string.Empty),
+            new Claim(ClaimTypes.Name, usuario.Nome ?? string.Empty)
         };
 
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -59,7 +59,7 @@ public class AuthController(IConfiguration config, AppDbContext context) : Contr
 
 public class UsuarioLoginModel
 {
-    public string Email { get; set; }
+    public string Email { get; set; } = string.Empty;
     
-    public string Senha { get; set; }
+    public string Senha { get; set; } = string.Empty;
 }

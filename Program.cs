@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddHttpClient("MinhaApi", client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]);
+    client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"] ?? "http://localhost:5070/");
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -65,7 +64,7 @@ builder.Services.AddCors(options =>
         else
         {
             policy
-                .WithOrigins("http://0.0.0.0:8080")
+                .WithOrigins("http://44.220.167.238")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         }

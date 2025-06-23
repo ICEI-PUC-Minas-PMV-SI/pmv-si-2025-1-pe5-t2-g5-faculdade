@@ -1,0 +1,27 @@
+@page
+@model MinhaAplicacao.Pages.Alunos.EditarAlunoModel
+@{
+    ViewData["Title"] = "Editar Aluno";
+}
+
+<form method="post">
+    
+    <input type="hidden" asp-for="Aluno.Id" />
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold" for="email">E-mail</label>
+        <input name="Aluno.Email" class="form-control" value="@ViewData["Email"]" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold" for="nome">Curso</label>
+        <input name="Aluno.Curso" class="form-control" value="@ViewData["Curso"]" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold" for="nome">Turma</label>
+        <input name="Aluno.Turma" class="form-control" value="@ViewData["Turma"]" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

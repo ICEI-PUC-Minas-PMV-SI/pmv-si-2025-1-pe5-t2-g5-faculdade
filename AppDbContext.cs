@@ -8,4 +8,6 @@ public class AppDbContext : DbContext
         }
 
     public DbSet<Usuario> Usuario { get; set; }
+    public DbSet<Livro> Livro { get; set; }
+    public DbSet<Aluno> Aluno { get; set; }
 }

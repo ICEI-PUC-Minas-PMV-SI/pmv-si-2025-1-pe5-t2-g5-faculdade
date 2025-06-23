@@ -1,0 +1,58 @@
+@page
+@model MinhaAplicacao.Pages.Alunos.CadastroAlunoModel
+@{
+    ViewData["Title"] = "Cadastro de Aluno";
+}
+
+<section class="app-main" style="max-width: 500px;">
+    <h2 class="h4 mb-4 text-center">✍️ Cadastro de Aluno</h2>
+
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label fw-semibold" for="Aluno_Nome">Nome Completo</label>
+            <input asp-for="Aluno.Nome" class="form-control" placeholder="Digite o nome completo" />
+            <span asp-validation-for="Aluno.Nome" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold" for="Aluno_Email">E-mail</label>
+            <input asp-for="Aluno.Email" class="form-control" placeholder="usuario@email.com" />
+            <span asp-validation-for="Aluno.Email" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-semibold" for="Aluno_Curso">Curso</label>
+            <input asp-for="Aluno.Curso" class="form-control" placeholder="Digite o curso" />
+            <span asp-validation-for="Aluno.Curso" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-semibold" for="Aluno_Turma">Turma</label>
+            <input asp-for="Aluno.Turma" class="form-control" placeholder="Digite a turma" />
+            <span asp-validation-for="Aluno.Turma" class="text-danger small"></span>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center gap-2">
+                <span class="spinner-border spinner-border-sm d-none" id="spinner" role="status" aria-hidden="true"></span>
+                <span id="textoBotao">Cadastrar</span>
+            </button>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const form = document.querySelector("form");
+        form.addEventListener("submit", () => {
+            const btn = form.querySelector("button");
+            const spinner = document.getElementById("spinner");
+            const texto = document.getElementById("textoBotao");
+
+            btn.disabled = true;
+            spinner.classList.remove("d-none");
+            texto.textContent = "Enviando...";
+        });
+    </script>
+}

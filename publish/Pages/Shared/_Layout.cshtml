@@ -24,7 +24,7 @@
                 {
                     <span class="text-muted small">Olá, @nomeUsuario!</span>
                 }
-                <a asp-page="/Logout" class="btn btn-outline-danger btn-sm">
+                <a href="/Logout" class="btn btn-outline-danger btn-sm">
                     <i class="bi bi-box-arrow-right"></i> Sair
                 </a>
             </div>
@@ -46,9 +46,8 @@
                             📚 Acadêmico
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="menuAcademico">
-                            <li><a class="dropdown-item" asp-page="/Livros"><i class="bi bi-person"></i> Alunos</a></li>
-                            <li><a class="dropdown-item" asp-page="/Relatorios"><i class="bi bi-book"></i> Livros</a></li>
-                            <li><a class="dropdown-item" asp-page="/Historico"><i class="bi bi-archive"></i> Materiais</a></li>
+                            <li><a class="dropdown-item" href="/Alunos/Index"><i class="bi bi-person"></i> Alunos</a></li>
+                            <li><a class="dropdown-item" href="/Livros/Index"><i class="bi bi-book"></i> Livros</a></li>
                         </ul>
                     </li>
 

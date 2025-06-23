@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,5 +62,28 @@ public class UsuarioController(AppDbContext context) : ControllerBase
         }
 
         return Ok(usuarios);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var usuario = await context.Usuario.FindAsync(id);
+
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+
+        context.Usuario.Remove(usuario);
+        await context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    public class UsuarioModel
+    {
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
     }
 }

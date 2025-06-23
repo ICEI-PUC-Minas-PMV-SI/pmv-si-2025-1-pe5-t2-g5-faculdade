@@ -43,8 +43,9 @@
 
                 const email = document.getElementById("email").value;
                 const senha = document.getElementById("senha").value;
+                const apiBaseUrl = "@Model.ApiBaseUrl";
 
-                const response = await fetch("/api/auth", {
+                const response = await fetch(`${apiBaseUrl}api/auth`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

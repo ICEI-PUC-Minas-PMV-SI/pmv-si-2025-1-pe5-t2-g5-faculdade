@@ -1,11 +1,16 @@
 C:\Users\isabe\Serra\publish\Serra.exe
 C:\Users\isabe\Serra\publish\appsettings.Development.json
 C:\Users\isabe\Serra\publish\appsettings.Production.json
+C:\Users\isabe\Serra\publish\Pages\Alunos copy\Cadastrar.cshtml
+C:\Users\isabe\Serra\publish\Pages\Alunos copy\Editar.cshtml
+C:\Users\isabe\Serra\publish\Pages\Alunos copy\Index.cshtml
+C:\Users\isabe\Serra\publish\Pages\Alunos\Cadastrar.cshtml
+C:\Users\isabe\Serra\publish\Pages\Alunos\Editar.cshtml
+C:\Users\isabe\Serra\publish\Pages\Alunos\Index.cshtml
 C:\Users\isabe\Serra\publish\Pages\Index.cshtml
 C:\Users\isabe\Serra\publish\Pages\Login.cshtml
 C:\Users\isabe\Serra\publish\Pages\Logout.cshtml
 C:\Users\isabe\Serra\publish\Pages\Shared\_Layout.cshtml
-C:\Users\isabe\Serra\publish\Pages\Teste.cshtml
 C:\Users\isabe\Serra\publish\Pages\Usuarios\Cadastrar.cshtml
 C:\Users\isabe\Serra\publish\Pages\Usuarios\Editar.cshtml
 C:\Users\isabe\Serra\publish\Pages\Usuarios\Index.cshtml

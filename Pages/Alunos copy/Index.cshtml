@@ -1,0 +1,59 @@
+@page
+@model MinhaAplicacao.Pages.Livros.IndexLivroModel
+@{
+    ViewData["Title"] = "Livros Cadastrados";
+}
+
+<section class="app-main">
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+        <h2 class="h4 m-0">👥 Livros Cadastrados</h2>
+
+        <a href="/Livros/Cadastrar" class="btn btn-success btn-sm">
+            <i class="bi bi-person-plus"></i> Novo Livro
+        </a>
+    </div>
+
+    @if (Model.Livros?.Any() == true)
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle bg-white rounded shadow-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th><i class="bi bi-person-fill"></i> Título</th>
+                        <th><i class="bi bi-envelope"></i> Autor</th>
+                        <th><i class="bi bi-envelope"></i> Edição</th>
+                        <th><i class="bi bi-envelope"></i> Ano</th>
+                        <th class="text-center"><i class="bi bi-gear"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var livro in Model.Livros)
+                    {
+                        <tr>
+                            <td>@livro.Id</td>
+                            <td>@livro.Titulo</td>
+                            <td>@livro.Autor</td>
+                            <td>@livro.Edicao</td>
+                            <td>@livro.Ano</td>
+                            <td class="text-center">
+                                <a href="/Livros/Editar?id=1" class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form method="post" asp-page-handler="Excluir" asp-route-id="@livro.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este livro?')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-muted fst-italic">Nenhum livro cadastrado ainda.</p>
+    }
+</section>

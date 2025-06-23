@@ -164,3 +164,4 @@ C:\Users\isabe\Serra\bin\Release\net8.0\appsettings.Development.json
 C:\Users\isabe\Serra\bin\Release\net8.0\appsettings.Production.json
 C:\Users\isabe\Serra\obj\Release\net8.0\Serra.RazorAssemblyInfo.cache
 C:\Users\isabe\Serra\obj\Release\net8.0\Serra.RazorAssemblyInfo.cs
+C:\Users\isabe\Serra\obj\Release\net8.0\Serra.sourcelink.json

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,7 +8,7 @@ public class CadastroModel(IHttpClientFactory clientFactory) : PageModel
     private readonly HttpClient _http = clientFactory.CreateClient("MinhaApi");
 
     [BindProperty]
-    public Usuario Usuario { get; set; }
+    public Usuario Usuario { get; set; } = new();
 
     public async Task<IActionResult> OnPostAsync()
     {

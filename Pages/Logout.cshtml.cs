@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,9 +6,10 @@ namespace MinhaAplicacao.Pages;
 
 public class LogoutModel : PageModel
 {
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
-        HttpContext.Session.Clear(); // Remove o token e quaisquer dados da sessão
+        HttpContext.Session.Clear();
+        await HttpContext.SignOutAsync();
         return RedirectToPage("/Login");
     }
 }
