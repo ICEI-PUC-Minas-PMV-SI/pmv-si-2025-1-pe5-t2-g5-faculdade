@@ -1,0 +1,79 @@
+@using System.Security.Claims
+@{
+    var nomeUsuario = User.Identity.IsAuthenticated
+        ? User.FindFirst(ClaimTypes.Name)?.Value
+        : null;
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gestão Acadêmica</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="icon" href="~/favicon.png" type="image/png" />
+</head>
+<body>
+    <header class="app-header px-4 py-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <h1 class="h4 m-0">🎓 Gestão Acadêmica</h1>
+            <div class="d-flex align-items-center gap-3">
+                @if (nomeUsuario != null)
+                {
+                    <span class="text-muted small">Olá, @nomeUsuario!</span>
+                }
+                <a asp-page="/Logout" class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-box-arrow-right"></i> Sair
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg app-navbar">
+        <div class="container">
+            <a class="navbar-brand text-muted" href="#">Sistema</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuAcademico" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            📚 Acadêmico
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menuAcademico">
+                            <li><a class="dropdown-item" asp-page="/Livros"><i class="bi bi-person"></i> Alunos</a></li>
+                            <li><a class="dropdown-item" asp-page="/Relatorios"><i class="bi bi-book"></i> Livros</a></li>
+                            <li><a class="dropdown-item" asp-page="/Historico"><i class="bi bi-archive"></i> Materiais</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuConfig" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ⚙️ Configurações
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menuConfig">
+                            <li><a class="dropdown-item" href="/Usuarios/Index"><i class="bi bi-people"></i> Usuários</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="app-main container my-4">
+        @RenderBody()
+        @RenderSection("Scripts", required: false)
+    </main>
+
+    <footer class="text-center small py-3 text-muted">
+        &copy; @DateTime.Now.Year - Faculdade UFS
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
