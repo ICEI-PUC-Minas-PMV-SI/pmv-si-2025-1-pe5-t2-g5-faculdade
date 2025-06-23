@@ -2,8 +2,6 @@ cff-version: 1.0.1
 message: Please cite this software using these metadata.
 title:
 authors:
-  - family-names:
-    given-names:
   - family-names: Lanza Japolino
     given-names: Guilherme
   - family-names: Modesto
