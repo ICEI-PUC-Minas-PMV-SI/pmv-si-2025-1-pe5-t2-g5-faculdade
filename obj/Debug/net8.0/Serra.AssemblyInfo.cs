@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Serra")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+228fdd18aa3d8973c420b387f809bc8a1f0093a5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c52151719a1a847728a0eee56c30bfe1391c22d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Serra")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Serra")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

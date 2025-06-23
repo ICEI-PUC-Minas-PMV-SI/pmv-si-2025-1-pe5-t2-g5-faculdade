@@ -8,6 +8,8 @@ public class LivroController(AppDbContext context) : ControllerBase
     [HttpPost("registrar")]
     public async Task<IActionResult> Registrar([FromBody] Livro livro)
     {
+        livro.DataCadastro = DateTime.Now;
+
         context.Livro.Add(livro);
         await context.SaveChangesAsync();
 

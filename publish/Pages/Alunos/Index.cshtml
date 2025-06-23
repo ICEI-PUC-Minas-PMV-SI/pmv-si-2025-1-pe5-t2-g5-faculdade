@@ -37,14 +37,12 @@
                             <td>@aluno.Curso</td>
                             <td>@aluno.Turma</td>
                             <td class="text-center">
-                                <a href="/Alunos/Editar?id=1" class="btn btn-sm btn-outline-primary me-1">
+                                <a href="/Alunos/Editar?id=@aluno.Id" class="btn btn-sm btn-outline-primary me-1">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form method="post" asp-page-handler="Excluir" asp-route-id="@aluno.Id" class="d-inline">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este aluno?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+                                <button class="btn btn-sm btn-outline-danger btn-excluir" data-id="@aluno.Id">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     }
@@ -57,3 +55,34 @@
         <p class="text-muted fst-italic">Nenhum aluno cadastrado ainda.</p>
     }
 </section>
+@section Scripts {
+    <script>
+        document.querySelectorAll(".btn-excluir").forEach(botao => {
+            botao.addEventListener("click", async (e) => {
+                e.preventDefault();
+
+                const id = botao.getAttribute("data-id");
+                const confirmar = confirm("Tem certeza que deseja excluir este aluno?");
+                if (!confirmar) return;
+
+                const apiBaseUrl = "@Model.ApiBaseUrl";
+
+                try {
+                    const resposta = await fetch(`${apiBaseUrl}api/aluno/${id}`, {
+                        method: "DELETE"
+                    });
+
+                    if (resposta.ok) {
+                        alert("Aluno excluído com sucesso!");
+                        location.reload();
+                    } else {
+                        const erro = await resposta.text();
+                        alert("Erro ao excluir: " + erro);
+                    }
+                } catch (err) {
+                    alert("Erro de rede: " + err.message);
+                }
+            });
+        });
+    </script>
+}

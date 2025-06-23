@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 
-namespace MinhaAplicacao.Pages.Usuarios;
+namespace MinhaAplicacao.Pages.Livros;
 
-public class IndexModel : PageModel
+public class IndexLivroModel : PageModel
 {
     private readonly IHttpClientFactory clientFactory;
 
-    public List<Usuario> Usuarios { get; set; } = [];
+    public List<Livro> Livros { get; set; } = [];
 
     private readonly ApiSettings _settings;
 
     public string ApiBaseUrl => _settings.BaseUrl;
 
-    public IndexModel(IOptions<ApiSettings> options, IHttpClientFactory clientFactory)
+    public IndexLivroModel(IOptions<ApiSettings> options, IHttpClientFactory clientFactory)
     {
         this.clientFactory = clientFactory;
         _settings = options?.Value ?? throw new ArgumentNullException(nameof(options));
@@ -22,9 +22,9 @@ public class IndexModel : PageModel
     public async Task OnGetAsync()
     {
         var client = this.clientFactory.CreateClient("MinhaApi");
-        var resposta = await client.GetFromJsonAsync<List<Usuario>>("api/usuario");
+        var resposta = await client.GetFromJsonAsync<List<Livro>>("api/livro");
 
         if (resposta != null)
-            Usuarios = resposta;
+            Livros = resposta;
     }
 }

@@ -4,24 +4,61 @@
     ViewData["Title"] = "Editar Aluno";
 }
 
-<form method="post">
+<form id="formEditar">
     
-    <input type="hidden" asp-for="Aluno.Id" />
+    <input type="hidden" id="alunoId" value="@Model.Aluno.Id" />
 
     <div class="mb-3">
         <label class="form-label fw-semibold" for="email">E-mail</label>
-        <input name="Aluno.Email" class="form-control" value="@ViewData["Email"]" />
+        <input id="email" class="form-control" value="@Model.Aluno.Email" />
     </div>
 
     <div class="mb-3">
         <label class="form-label fw-semibold" for="nome">Curso</label>
-        <input name="Aluno.Curso" class="form-control" value="@ViewData["Curso"]" />
+        <input id="curso" class="form-control" value="@Model.Aluno.Curso" />
     </div>
 
     <div class="mb-3">
         <label class="form-label fw-semibold" for="nome">Turma</label>
-        <input name="Aluno.Turma" class="form-control" value="@ViewData["Turma"]" />
+        <input id="turma" class="form-control" value="@Model.Aluno.Turma" />
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar</button>
 </form>
+@section Scripts {
+    <script>
+        const form = document.getElementById("formEditar");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const id = document.getElementById("alunoId").value;
+            const email = document.getElementById("email").value;
+            const turma = document.getElementById("turma").value;
+            const curso = document.getElementById("curso").value;
+
+            const aluno = { id, email, turma, curso };
+            const apiBaseUrl = "@Model.ApiBaseUrl";
+
+            try {
+                const resposta = await fetch(`${apiBaseUrl}api/aluno/editar/${id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(aluno)
+                });
+
+                if (resposta.ok) {
+                    alert("Aluno atualizado com sucesso!");
+                    window.location.href = "/Alunos/Index";
+                } else {
+                    const erro = await resposta.text();
+                    alert("Erro ao atualizar: " + erro);
+                }
+            } catch (err) {
+                alert("Erro de rede: " + err.message);
+            }
+        });
+    </script>
+}

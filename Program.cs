@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddHttpClient("MinhaApi", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"] ?? "http://localhost:5070/");
+    //client.BaseAddress = new Uri("http://localhost:5070/");
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -64,7 +65,7 @@ builder.Services.AddCors(options =>
         else
         {
             policy
-                .WithOrigins("http://44.220.167.238")
+                .WithOrigins("http://54.160.54.108/")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         }
@@ -79,7 +80,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseDeveloperExceptionPage();
 app.UseStaticFiles();
 app.UseRouting();
 

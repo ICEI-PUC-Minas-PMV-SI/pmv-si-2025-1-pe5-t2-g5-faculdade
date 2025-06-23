@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
@@ -13,30 +14,38 @@ public class AuthController(IConfiguration config, AppDbContext context) : Contr
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] UsuarioLoginModel model)
     {
-        var usuario = context.Usuario.SingleOrDefault(u => u.Email == model.Email);
-
-        if (usuario == null || !BCrypt.Net.BCrypt.Verify(model.Senha, usuario.Senha))
+        try
         {
-            return Unauthorized("Credenciais inválidas.");
+            var usuario = context.Usuario.SingleOrDefault(u => u.Email == model.Email);      
+
+            if (usuario == null || !BCrypt.Net.BCrypt.Verify(model.Senha, usuario.Senha))
+            {
+                return Unauthorized("Credenciais inválidas.");
+            }
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                new Claim(ClaimTypes.Email, usuario.Email ?? string.Empty),
+                new Claim(ClaimTypes.Name, usuario.Nome ?? string.Empty)
+            };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity),
+                new AuthenticationProperties { IsPersistent = true });
+
+            var token = GenerateJwtToken(usuario);
+            return Ok(new { token });
         }
-
-        var claims = new List<Claim>
+        catch (Exception ex)
         {
-            new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-            new Claim(ClaimTypes.Email, usuario.Email ?? string.Empty),
-            new Claim(ClaimTypes.Name, usuario.Nome ?? string.Empty)
-        };
-
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        var principal = new ClaimsPrincipal(identity);
-
-        await HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(identity),
-            new AuthenticationProperties { IsPersistent = true });
-
-        var token = GenerateJwtToken(usuario);
-        return Ok(new { token });
+            Console.WriteLine($"Erro interno: {ex.Message}");
+            return StatusCode(500, $"Erro interno no servidor.{ex.Message}");
+        }
     }
 
     private string GenerateJwtToken(Usuario user)

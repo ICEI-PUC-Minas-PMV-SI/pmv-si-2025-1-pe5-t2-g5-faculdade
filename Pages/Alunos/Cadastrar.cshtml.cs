@@ -1,29 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 
 namespace MinhaAplicacao.Pages.Alunos;
 
-public class CadastroAlunoModel(IHttpClientFactory clientFactory) : PageModel
+public class CadastroAlunoModel : PageModel
 {
-    private readonly HttpClient _http = clientFactory.CreateClient("MinhaApi");
+    private readonly ApiSettings _settings;
 
-    [BindProperty]
-    public Aluno Aluno { get; set; } = new();
+    public string ApiBaseUrl => _settings.BaseUrl;
 
-    public async Task<IActionResult> OnPostAsync()
+    public CadastroAlunoModel(IOptions<ApiSettings> options)
     {
-        if (!ModelState.IsValid)
-            return Page();
-
-        var resposta = await _http.PostAsJsonAsync("api/aluno/registrar", Aluno);
-
-        if (resposta.IsSuccessStatusCode)
-        {
-            return RedirectToPage("/Alunos/Index");
-        }
-
-        var erro = await resposta.Content.ReadAsStringAsync();
-        ModelState.AddModelError(string.Empty, $"Erro ao cadastrar: {erro}");
-        return Page();
+        _settings = options?.Value ?? throw new ArgumentNullException(nameof(options));
     }
 }

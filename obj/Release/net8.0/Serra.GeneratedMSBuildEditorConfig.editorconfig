@@ -20,18 +20,6 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/isabe/Serra/Pages/Alunos copy/Cadastrar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWx1bm9zIGNvcHlcQ2FkYXN0cmFyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/isabe/Serra/Pages/Alunos copy/Editar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWx1bm9zIGNvcHlcRWRpdGFyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/isabe/Serra/Pages/Alunos copy/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWx1bm9zIGNvcHlcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/isabe/Serra/Pages/Alunos/Cadastrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWx1bm9zXENhZGFzdHJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -46,6 +34,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/isabe/Serra/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/isabe/Serra/Pages/Livros/Cadastrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGl2cm9zXENhZGFzdHJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/isabe/Serra/Pages/Livros/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGl2cm9zXEVkaXRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/isabe/Serra/Pages/Livros/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGl2cm9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/isabe/Serra/Pages/Login.cshtml]

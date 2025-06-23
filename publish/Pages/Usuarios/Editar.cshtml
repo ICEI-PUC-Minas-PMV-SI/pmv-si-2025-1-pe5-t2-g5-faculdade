@@ -4,19 +4,56 @@
     ViewData["Title"] = "Editar Usuário";
 }
 
-<form method="post">
+<form id="formEditar">
     
-    <input type="hidden" asp-for="UsuarioModel.Id" />
+    <input type="hidden" id="usuarioId" value="@Model.Usuario.Id" />
 
     <div class="mb-3">
         <label class="form-label fw-semibold" for="nome">Nome</label>
-        <input name="UsuarioModel.Nome" class="form-control" value="@ViewData["Nome"]" />
+        <input id="nome" class="form-control" value="@Model.Usuario.Nome" />
     </div>
 
     <div class="mb-3">
         <label class="form-label fw-semibold" for="email">E-mail</label>
-        <input name="UsuarioModel.Email" class="form-control" value="@ViewData["Email"]" />
+        <input id="email" class="form-control" value="@Model.Usuario.Email" />
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar</button>
 </form>
+
+@section Scripts {
+    <script>
+        const form = document.getElementById("formEditar");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const id = document.getElementById("usuarioId").value;
+            const nome = document.getElementById("nome").value;
+            const email = document.getElementById("email").value;
+
+            const usuario = { id, nome, email };
+            const apiBaseUrl = "@Model.ApiBaseUrl";
+
+            try {
+                const resposta = await fetch(`${apiBaseUrl}api/usuario/editar/${id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(usuario)
+                });
+
+                if (resposta.ok) {
+                    alert("Usuário atualizado com sucesso!");
+                    window.location.href = "/Usuarios/Index";
+                } else {
+                    const erro = await resposta.text();
+                    alert("Erro ao atualizar: " + erro);
+                }
+            } catch (err) {
+                alert("Erro de rede: " + err.message);
+            }
+        });
+    </script>
+}

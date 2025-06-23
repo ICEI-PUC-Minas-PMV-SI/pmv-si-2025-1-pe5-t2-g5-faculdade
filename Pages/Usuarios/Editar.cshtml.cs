@@ -1,18 +1,29 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 
 namespace MinhaAplicacao.Pages.Usuarios;
-public class EditarModel(IHttpClientFactory clientFactory) : PageModel
+public class EditarModel : PageModel
 {
-    private readonly HttpClient _http = clientFactory.CreateClient("MinhaApi");
+    private readonly IHttpClientFactory clientFactory;
+
+    private readonly ApiSettings _settings;
+
+    public string ApiBaseUrl => _settings.BaseUrl;
 
     [BindProperty]
     public Usuario Usuario { get; set; } = new();
 
+    public EditarModel(IOptions<ApiSettings> options, IHttpClientFactory clientFactory)
+    {
+        this.clientFactory = clientFactory;
+        _settings = options?.Value ?? throw new ArgumentNullException(nameof(options));
+    }
+
     public async Task<IActionResult> OnGetAsync([FromQuery] int id)
     {
-        var resposta = await _http.GetFromJsonAsync<Usuario>($"api/usuario/{id}");
+        var client = this.clientFactory.CreateClient("MinhaApi");
+        var resposta = await client.GetFromJsonAsync<Usuario>($"api/usuario/{id}");
 
         if (resposta == null)
             return NotFound();
@@ -20,23 +31,6 @@ public class EditarModel(IHttpClientFactory clientFactory) : PageModel
         Usuario = resposta;
 
         ModelState.Clear();
-        return Page();
-    }
-
-    public async Task<IActionResult> OnPostAsync()
-    {
-        if (!ModelState.IsValid)
-            return Page();
-
-        var resposta = await _http.PostAsJsonAsync(
-            $"api/usuario/editar/{Usuario.Id}",
-            Usuario
-        );
-
-        if (resposta.IsSuccessStatusCode)
-            return RedirectToPage("/Usuarios/Index");
-
-        ModelState.AddModelError("", "Erro ao atualizar usuário.");
         return Page();
     }
 }

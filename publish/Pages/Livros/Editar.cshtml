@@ -1,0 +1,69 @@
+@page
+@model MinhaAplicacao.Pages.Livros.EditarLivroModel
+@{
+    ViewData["Title"] = "Editar Livro";
+}
+
+<form id="formEditar">
+    
+    <input type="hidden" id="livroId" value="@Model.Livro.Id" />
+    <input type="hidden" id="titulo" value="@Model.Livro.Titulo" />
+    <input type="hidden" id="autor" value="@Model.Livro.Autor" />
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold" for="edicao">Edicao</label>
+        <input id="edicao" class="form-control" value="@Model.Livro.Edicao" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold" for="ano">Ano</label>
+        <input id="ano" class="form-control" value="@Model.Livro.Ano" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+@section Scripts {
+    <script>
+        const form = document.getElementById("formEditar");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const id = document.getElementById("livroId").value;
+            const titulo = document.getElementById("titulo").value;
+            const autor = document.getElementById("autor").value;
+            const edicao = document.getElementById("edicao").value;
+            const ano = document.getElementById("ano").value;
+
+            const livro = { 
+                id,
+                titulo,
+                autor,
+                edicao,
+                ano
+            };
+            
+            const apiBaseUrl = "@Model.ApiBaseUrl";
+
+            try {
+                const resposta = await fetch(`${apiBaseUrl}api/livro/editar/${id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(livro)
+                });
+
+                if (resposta.ok) {
+                    alert("Livro atualizado com sucesso!");
+                    window.location.href = "/Livros/Index";
+                } else {
+                    const erro = await resposta.text();
+                    alert("Erro ao atualizar: " + erro);
+                }
+            } catch (err) {
+                alert("Erro de rede: " + err.message);
+            }
+        });
+    </script>
+}

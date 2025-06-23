@@ -7,22 +7,22 @@
 <section class="app-main" style="max-width: 500px;">
     <h2 class="h4 mb-4 text-center">✍️ Cadastro de Usuário</h2>
 
-    <form method="post">
+    <form id="formCadastro">
         <div class="mb-3">
             <label class="form-label fw-semibold" for="Usuario_Nome">Nome Completo</label>
-            <input asp-for="Usuario.Nome" class="form-control" placeholder="Digite o nome completo" />
+            <input id="nome" class="form-control" placeholder="Digite o nome completo" />
             <span asp-validation-for="Usuario.Nome" class="text-danger small"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label fw-semibold" for="Usuario_Email">E-mail</label>
-            <input asp-for="Usuario.Email" class="form-control" placeholder="usuario@email.com" />
+            <input id="email" class="form-control" placeholder="usuario@email.com" />
             <span asp-validation-for="Usuario.Email" class="text-danger small"></span>
         </div>
 
         <div class="mb-4">
             <label class="form-label fw-semibold" for="Usuario_Senha">Senha</label>
-            <input asp-for="Usuario.Senha" class="form-control" type="password" placeholder="••••••" />
+            <input id="senha" class="form-control" type="password" placeholder="••••••" />
             <span asp-validation-for="Usuario.Senha" class="text-danger small"></span>
         </div>
 
@@ -38,15 +38,49 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        const form = document.querySelector("form");
-        form.addEventListener("submit", () => {
-            const btn = form.querySelector("button");
-            const spinner = document.getElementById("spinner");
-            const texto = document.getElementById("textoBotao");
+        const form = document.getElementById("formCadastro");
+        const spinner = document.getElementById("spinner");
+        const texto = document.getElementById("textoBotao");
 
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const btn = form.querySelector("button");
             btn.disabled = true;
             spinner.classList.remove("d-none");
             texto.textContent = "Enviando...";
+
+            const usuario = {
+                nome: document.getElementById("nome").value,
+                email: document.getElementById("email").value,
+                senha: document.getElementById("senha").value
+            };
+            
+            const apiBaseUrl = "@Model.ApiBaseUrl";
+
+            try {
+                const resposta = await fetch(`${apiBaseUrl}api/usuario/registrar`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(usuario)
+                });
+
+                if (resposta.ok) {
+                    alert("Usuário cadastrado com sucesso!");
+                    window.location.href = "/Usuarios/Index";
+                } else {
+                    const erro = await resposta.text();
+                    alert("Erro ao cadastrar: " + erro);
+                }
+            } catch (err) {
+                alert("Erro de rede: " + err.message);
+            } finally {
+                btn.disabled = false;
+                spinner.classList.add("d-none");
+                texto.textContent = "Cadastrar";
+            }
         });
     </script>
 }

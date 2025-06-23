@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 
-namespace MinhaAplicacao.Pages.Usuarios;
+namespace MinhaAplicacao.Pages.Livros;
 
-public class CadastroModel : PageModel
+public class CadastroLivroModel : PageModel
 {
     private readonly ApiSettings _settings;
 
     public string ApiBaseUrl => _settings.BaseUrl;
 
-    public CadastroModel(IOptions<ApiSettings> options)
+    public CadastroLivroModel(IOptions<ApiSettings> options)
     {
         _settings = options?.Value ?? throw new ArgumentNullException(nameof(options));
     }
